@@ -15,7 +15,7 @@ namespace SignalRAssignment.Pages
         }
 
         [BindProperty]
-        public Account Account { get; set; } = default!;
+        public Models.Account Account { get; set; } = default!;
 
         public void OnGet()
         {

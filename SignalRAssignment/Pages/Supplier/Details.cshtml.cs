@@ -13,9 +13,9 @@ namespace SignalRAssignment.Pages_Supplier
     [StaffPermission]
     public class DetailsModel : PageModel
     {
-        private readonly SignalRAssignment.Models.PizzaStoreContext _context;
+        private readonly PizzaStoreContext _context;
 
-        public DetailsModel(SignalRAssignment.Models.PizzaStoreContext context)
+        public DetailsModel(PizzaStoreContext context)
         {
             _context = context;
         }

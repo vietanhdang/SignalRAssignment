@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalRAssignment.Common;
 using SignalRAssignment.Models;
 
-namespace SignalRAssignment.Pages_Supplier
+namespace SignalRAssignment.Pages_Account
 {
     [StaffPermission]
     public class EditModel : PageModel
@@ -22,21 +22,21 @@ namespace SignalRAssignment.Pages_Supplier
         }
 
         [BindProperty]
-        public Supplier Supplier { get; set; } = default!;
+        public Models.Account Account { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Suppliers == null)
+            if (id == null || _context.Accounts == null)
             {
                 return NotFound();
             }
 
-            var supplier =  await _context.Suppliers.FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            var account =  await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            if (account == null)
             {
                 return NotFound();
             }
-            Supplier = supplier;
+            Account = account;
             return Page();
         }
 
@@ -44,12 +44,12 @@ namespace SignalRAssignment.Pages_Supplier
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (Account.UserName == null || Account.Password==null || Account.FullName == null)
             {
                 return Page();
             }
 
-            _context.Attach(Supplier).State = EntityState.Modified;
+            _context.Attach(Account).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace SignalRAssignment.Pages_Supplier
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SupplierExists(Supplier.SupplierId))
+                if (!AccountExists(Account.AccountId))
                 {
                     return NotFound();
                 }
@@ -70,9 +70,9 @@ namespace SignalRAssignment.Pages_Supplier
             return RedirectToPage("./Index");
         }
 
-        private bool SupplierExists(int id)
+        private bool AccountExists(int id)
         {
-          return (_context.Suppliers?.Any(e => e.SupplierId == id)).GetValueOrDefault();
+          return (_context.Accounts?.Any(e => e.AccountId == id)).GetValueOrDefault();
         }
     }
 }

@@ -13,9 +13,9 @@ namespace SignalRAssignment.Pages_Supplier
     [StaffPermission]
     public class DeleteModel : PageModel
     {
-        private readonly SignalRAssignment.Models.PizzaStoreContext _context;
+        private readonly PizzaStoreContext _context;
 
-        public DeleteModel(SignalRAssignment.Models.PizzaStoreContext context)
+        public DeleteModel(PizzaStoreContext context)
         {
             _context = context;
         }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SignalRAssignment.Common;
 using SignalRAssignment.Models;
 
-namespace SignalRAssignment.Pages_Supplier
+namespace SignalRAssignment.Pages_Account
 {
     [StaffPermission]
     public class CreateModel : PageModel
@@ -26,18 +26,26 @@ namespace SignalRAssignment.Pages_Supplier
         }
 
         [BindProperty]
-        public Supplier Supplier { get; set; } = default!;
+        public Account Account { get; set; } = default!;
         
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Suppliers == null || Supplier == null)
+            if (Account.UserName == null || Account.Password == null || Account.FullName == null)
             {
                 return Page();
             }
 
-            _context.Suppliers.Add(Supplier);
+            // check if username already exists
+            var account = _context.Accounts.FirstOrDefault(a => a.UserName == Account.UserName);
+            if (account != null)
+            {
+                ModelState.AddModelError(string.Empty, "Username already exists");
+                return Page();
+            }
+            
+            _context.Accounts.Add(Account);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

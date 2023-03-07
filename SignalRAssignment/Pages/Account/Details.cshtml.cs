@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalRAssignment.Common;
 using SignalRAssignment.Models;
 
-namespace SignalRAssignment.Pages_Category
+namespace SignalRAssignment.Pages_Account
 {
     [StaffPermission]
     public class DetailsModel : PageModel
@@ -20,23 +20,23 @@ namespace SignalRAssignment.Pages_Category
             _context = context;
         }
 
-        public Category Category { get; set; } = default!;
+      public Account Account { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Categories == null)
+            if (id == null || _context.Accounts == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
+            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.AccountId == id);
+            if (account == null)
             {
                 return NotFound();
             }
-            else
+            else 
             {
-                Category = category;
+                Account = account;
             }
             return Page();
         }

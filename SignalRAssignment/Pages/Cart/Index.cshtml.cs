@@ -53,7 +53,7 @@ namespace SignalRAssignment.Pages.Cart
         {
             cartCRUD = new CartCRUD(_context, HttpContext.Session);
             bool isLogged = false;
-            if(VaSession.Get<Account>(HttpContext.Session, "Account") != null)
+            if(VaSession.Get<Models.Account>(HttpContext.Session, "Account") != null)
             {
                 isLogged = true;
             }

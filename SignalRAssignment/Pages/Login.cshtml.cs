@@ -9,7 +9,7 @@ namespace SignalRAssignment.Pages
     public class LoginModel : PageModel
     {
         [BindProperty]
-        public Account Account { get; set; } = default!;
+        public Models.Account Account { get; set; } = default!;
 
         private readonly PizzaStoreContext _context;
 
